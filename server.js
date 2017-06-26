@@ -6,7 +6,7 @@ var morgan = require("morgan");
 
 var app = express();
 
-var db = "mongodb://localhost/mean_end_to_end";
+var db = "mongodb://axosar:t2st3ng@ds131742.mlab.com:31742/mytasklist_axosar";
 
 mongoose.connect(db, function(err, response){
   if(err){
