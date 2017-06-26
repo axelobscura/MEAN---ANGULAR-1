@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="container users-container">
+    <table class="table table-bordered table-striped table-hovered teable-condensed">
+      <th>Name</th>
+      <th>Age</th>
+      <th>Actions</th>
+      <tr ng-repeat="user in vm.users">
+        <td>{{user.name}}</td>
+        <td>{{user.age}}</td>
+        <td>
+          <button class="btn btn-warning">EDIT</button>
+          <button class="btn btn-danger">DELETE</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
