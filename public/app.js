@@ -14,12 +14,29 @@
     var vm = this;
 
     vm.users = [];
+
+    vm.detailedUser;
+
+    vm.showDetails = function(user){
+      vm.detailedUser = user;
+      vm.detailed = true;
+    }
+
     vm.getUsers = function(){
       $http.get('/api/users').then(function(response){
         vm.users = response.data;
       });
     }
     vm.getUsers();
+
+    vm.updateUser = function(user){
+      if(user){
+        $http.put('/api/users', user).then(function(response){
+          console.log('Updated user');
+          vm.getUsers();
+        })
+      }
+    }
 
     vm.removeUser = function(user){
       console.log(user);

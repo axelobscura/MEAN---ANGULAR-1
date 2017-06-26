@@ -1,19 +1,27 @@
 <div class="container">
   <div class="container users-container">
-    <table class="table table-bordered table-striped table-hovered teable-condensed">
+    <table class="table table-bordered table-striped table-hovered teable-condensed" ng-hide="vm.detailed">
       <th>Name</th>
       <th>Age</th>
       <th>Actions</th>
       <tr ng-repeat="user in vm.users">
-        <td>{{user.name}}</td>
-        <td>{{user.age}}</td>
+        <td style="cursor:pointer;" ng-if="!editing" ng-click="vm.showDetails(user)">{{user.name}}</td>
+        <td style="cursor:pointer;" ng-if="!editing" ng-click="vm.showDetails(user)">{{user.age}}</td>
+        <td ng-if="editing">
+          <input type="text" ng-model="user.name" class="form-control" style="width:150px" />
+        </td>
+        <td ng-if="editing">
+          <input type="text" ng-model="user.age" class="form-control" style="width:150px" />
+        </td>
         <td>
-          <button class="btn btn-warning">EDIT</button>
-          <button class="btn btn-danger" ng-click="vm.removeUser(user);">DELETE</button>
+          <button class="btn btn-warning" ng-hide="editing" ng-click="editing=!editing">EDIT</button>
+          <button class="btn btn-success" ng-hide="!editing" ng-click="vm.updateUser(user);editing=false">SAVE</button>
+          <button class="btn btn-primary" ng-hide="!editing" ng-click="editing=!editing">BACK</button>
+          <button class="btn btn-danger" ng-hide="editing" ng-click="vm.removeUser(user);">DELETE</button>
         </td>
       </tr>
     </table>
-    <button class="btn btn-primary btn-md" ng-hide="addUser == true;" ng-click="addUser=!addUser">ADD USER</button>
+    <button class="btn btn-primary btn-md" ng-hide="vm.detailed === true || addUser == true;" ng-click="addUser=!addUser">ADD USER</button>
   </div>
   <div class="container create-users" ng-hide="!addUser" style="margin-top:20px;">
     <div class="form-group">
@@ -26,5 +34,13 @@
     </div>
     <button class="btn btn-success" ng-click="vm.addUser(vm.user)" ng-disabled="!vm.user.name || !vm.user.age">ADD</button>
     <button class="btn btn-primary" ng-click="addUser=false">BACK</button>
+  </div>
+  <div class="container details-container" ng-if="vm.detailed === true">
+    <div class="jumbotron">
+      <div class="close" style="font-size:50px;color:#000000;" ng-click="vm.detailed=false;">x</div>
+      <h3>You are viewing the details of User # {{vm.detailedUser._id}}</h3>
+      <h3>Name: {{vm.detailedUser.name}}</h3>
+      <h3>Age: {{vm.detailedUser.age}}</h3>
+    </div>
   </div>
 </div>
