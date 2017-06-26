@@ -21,6 +21,15 @@
     }
     vm.getUsers();
 
+    vm.removeUser = function(user){
+      console.log(user);
+      if(user){
+        $http.delete('/api/users/' + user._id).then(function(response){
+          vm.getUsers();
+        });
+      }
+    }
+
     vm.addUser = function(user){
       if(user && user.name && user.age){
         console.log('About to create user');

@@ -33,6 +33,18 @@ router.get('/api/users', function(request, response){
   })
 });
 
+router.delete('/api/users/:id', function(request, response){
+  console.log(request.body);
+  var id = request.params.id;
+  Model.remove({_id: id}, function(err, res){
+    if(err){
+      response.status(500).send(err);
+    } else {
+      response.status(200).send({message: 'Success on deleting user!'});
+    }
+  })
+})
+
 router.post('/api/users', function(request, response){
   console.log(request.body);
   var model = new Model();
