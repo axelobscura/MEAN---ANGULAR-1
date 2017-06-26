@@ -18,6 +18,10 @@ mongoose.connect(db, function(err, response){
 
 var router = express.Router();
 
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({extended: true}));
+
 //GET
 router.get('/api/users', function(request, response){
   Model.find({}, function(err, users){
@@ -27,13 +31,23 @@ router.get('/api/users', function(request, response){
       response.status(200).send(users)
     }
   })
-})
+});
+
+router.post('/api/users', function(request, response){
+  console.log(request.body);
+  var model = new Model();
+  model.name = request.body.name;
+  model.age = request.body.age;
+  model.save(function(err, user){
+    if(err){
+      response.status(500).send(err)
+    } else {
+      response.status(201).send(user)
+    }
+  })
+});
 
 app.use('/', router);
-
-app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(morgan('dev'));
 

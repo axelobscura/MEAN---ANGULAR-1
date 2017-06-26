@@ -13,5 +13,18 @@
         </td>
       </tr>
     </table>
+    <button class="btn btn-primary btn-md" ng-hide="addUser == true;" ng-click="addUser=!addUser">ADD USER</button>
+  </div>
+  <div class="container create-users" ng-hide="!addUser" style="margin-top:20px;">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input required type="text" id="name" class="form-control" style="width:300px;" ng-model="vm.user.name" />
+    </div>
+    <div class="form-group">
+      <label for="name">Age</label>
+      <input required type="number" id="age" class="form-control" style="width:300px;" ng-model="vm.user.age" />
+    </div>
+    <button class="btn btn-success" ng-click="vm.addUser(vm.user)" ng-disabled="!vm.user.name || !vm.user.age">ADD</button>
+    <button class="btn btn-primary" ng-click="addUser=false">BACK</button>
   </div>
 </div>
